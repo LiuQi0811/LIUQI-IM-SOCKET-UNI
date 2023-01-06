@@ -3,11 +3,13 @@ const store = createStore({
 	state:{
 		socketTask: null,
 		websocketData: {}, //存放从后端接收到的 websocket 数据
-		user: ''
+		user: '',
+		onlineMessage:{}
 	},
 	mutations:{
 		setWebsocketData(state,data){
-			state.websocketData = data.data
+			console.log('setWebsocketData 返回结果',data)
+			state.websocketData = data
 		},
 		setUser(state,user){
 			state.user = user
@@ -25,30 +27,33 @@ const store = createStore({
 				}
 			})
 		state.socketTask.onOpen(()=> dispatch('websocketOnOpen'))
-		state.socketTask.onMessage(res => dispatch('websocketOnMessage'))
+		state.socketTask.onMessage(() => dispatch('websocketOnMessage'))
 		state.socketTask.onClose(e => dispatch('websocketOnClose'))
 		state.socketTask.onError(e => dispatch('websocketOnError'))
 		
-		
-		// 可行的 会有好友上线提示
-		uni.onSocketMessage((res)=>{
-			console.log(res)
-		})
 		},
 		websocketOnOpen({commit}){
 			console.log('websocket 正在打开中.......')
 		},
-		websocketOnMessage({commit},res)
+		websocketOnMessage({commit})
 		{
-			console.log('消息提示：',res)
 			
+			// 可行的 会有好友上线提示
+			uni.onSocketMessage((res)=>{
+				console.log(JSON.parse(res.data))
+				console.log('消息提示：',res)
 			if(res.data !=='连接成功'){
 				if(res){
 				let data = JSON.parse(res.data);
+				console.log('Data ==>',data)
 				commit('setWebsocketData',data)
-				
 				}
 			}
+		
+			})
+			console.log('state ==>',this.state)
+			
+		
 		},
 		websocketOnClose({commit,dispatch}){
 			console.log('websocket 连接关闭')
