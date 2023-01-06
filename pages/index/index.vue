@@ -21,6 +21,11 @@
 				users: []
 			} 
 		},
+		watch:{ // vuex监听器
+			'$store.state.websocketData':(val,oval)=>{
+				console.log('vuex监听器 好友上线提示 ==>',val)
+			}
+		},
 		onLoad(param) {
 			this.startWebsocket(param)
 			let store = this.$store.state //获取vuex $store属性
