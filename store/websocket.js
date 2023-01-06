@@ -7,8 +7,7 @@ const store = createStore({
 	},
 	mutations:{
 		setWebsocketData(state,data){
-			let mssage = JSON.parse(data.data)
-			state.websocketData = message
+			state.websocketData = data.data
 		},
 		setUser(state,user){
 			state.user = user
@@ -16,7 +15,7 @@ const store = createStore({
 	},
 	actions:{
 		websocketInit({state,dispatch},url){
-			state.socketTast = uni.connectSocket({
+			state.socketTask = uni.connectSocket({
 				url, // url表示 websocket 连接ip
 				success:()=> {
 					console.log('websocket 连接成功！')
@@ -25,27 +24,29 @@ const store = createStore({
 					console.log('连接失败'+ e)
 				}
 			})
-		state.socketTast.onOpen(()=> dispatch('websocketOnOpen'))
-		state.socketTast.onMessage(res => dispatch('websocketOnMessage'))
-		state.socketTast.onClose(e => dispatch('websocketOnClose'))
-		state.socketTast.onError(e => dispatch('websocketOnError'))
+		state.socketTask.onOpen(()=> dispatch('websocketOnOpen'))
+		state.socketTask.onMessage(res => dispatch('websocketOnMessage'))
+		state.socketTask.onClose(e => dispatch('websocketOnClose'))
+		state.socketTask.onError(e => dispatch('websocketOnError'))
+		
+		
+		// 可行的 会有好友上线提示
+		uni.onSocketMessage((res)=>{
+			console.log(res)
+		})
 		},
 		websocketOnOpen({commit}){
-			console.log('websocket 正在连接中.......')
+			console.log('websocket 正在打开中.......')
 		},
 		websocketOnMessage({commit},res)
 		{
+			console.log('消息提示：',res)
+			
 			if(res.data !=='连接成功'){
 				if(res){
-				let data = json.parse(res.data);
-				if(data){
-					if(data.type === 2){
-						//跳转视频电话
-						
-					}else{
-						commit('setWebsocketData',res)
-					}
-				}
+				let data = JSON.parse(res.data);
+				commit('setWebsocketData',data)
+				
 				}
 			}
 		},
@@ -57,10 +58,10 @@ const store = createStore({
 		},
 		websocketClose({state})
 		{
-			if(!state.socketTast){
+			if(!state.socketTask){
 				return
 			}
-			state.socketTast.close({
+			state.socketTask.close({
 				success(res){
 					console.log('关闭成功！'	,res)
 				},

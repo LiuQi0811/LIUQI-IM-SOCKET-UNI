@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<view class="communication—list">
-			<view class="communication—list-item">
+			<view class="communication—list-item" v-for="(item,index) in users">
 					<img class="communication—list-item-image" src="../../static/logo.png" alt="">
-					<h3 class = "communication—list-name">小兔子乖乖</h3>
+					<h3 class = "communication—list-name">{{item}}</h3>
 					<view class="communication—list-time">2023-01-05</view>
 					<view class="communication—list-title">👋👋</view>
 			</view>
