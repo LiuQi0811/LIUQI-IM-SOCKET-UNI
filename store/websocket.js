@@ -13,6 +13,10 @@ const store = createStore({
 		},
 		setUser(state,user){
 			state.user = user
+		},
+		setOnlineMessage(state,online){
+			console.log('setOnlineMessage 返回结果',online)
+			state.onlineMessage = online
 		}
 	},
 	actions:{
@@ -47,6 +51,7 @@ const store = createStore({
 				let data = JSON.parse(res.data);
 				console.log('Data ==>',data)
 				commit('setWebsocketData',data)
+				commit('setOnlineMessage',data.msg)
 				}
 			}
 		

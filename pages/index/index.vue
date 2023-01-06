@@ -1,5 +1,10 @@
 <template>
 	<view>
+		<view v-show='showNotice'>
+			<!-- NoticeBar 滚动通知  -->
+			  <u-notice-bar :text="onlineUser"></u-notice-bar>
+		</view>
+		
 		<view class="communication—list">
 			<view class="communication—list-item" v-for="(item,index) in users">
 					<img class="communication—list-item-image" src="../../static/logo.png" alt="">
@@ -15,15 +20,18 @@
 </template>
 
 <script>
+import { data } from 'browserslist'
 	export default {
 		data() {
 			return {
-				users: []
+				users: [],
+				onlineUser:'',// 好友上线通知内容
+				showNotice:false //滚动通知 展示
 			} 
 		},
 		watch:{ // vuex监听器
 			'$store.state.websocketData':(val,oval)=>{
-				console.log('vuex监听器 好友上线提示 ==>',val)
+				console.log('vuex监听器 好友上线提示 ==>',val.msg)
 			}
 		},
 		onLoad(param) {
