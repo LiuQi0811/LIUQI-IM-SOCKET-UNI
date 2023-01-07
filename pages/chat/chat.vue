@@ -1,9 +1,10 @@
 <template>
 	<view>
+		{{this.user}}
 		<scroll-view scroll-y="true">
 			<view class="list">
 				<!-- 左 -->
-				<view class="item item-left">
+				<view class="item item-left" v-for="(item,index) in list" :key="index">
 					<u-avatar 
 					            src="https://pic.169pp.net/169mm/202212/089/1.jpg"
 					            fontSize="18"
@@ -30,7 +31,7 @@
 		<view class="bottom">
 			<view class="bottom-item">
 				<u--input 
-				border='surroud'>
+				border='surroud' v-model="msg">
 				</u--input>
 				<button type="primary">发送</button>
 				<u-icon name='phone' size="38">
@@ -46,7 +47,15 @@
 		data() {
 			return {
 				username:'',
-				me:''
+				me:'',
+				msg:'',
+				list:[
+					{'to':'aa','source':'bb','type':'1','msg':'MSG'},
+					{'to':'aa','source':'bb','type':'1','msg':'MSG'},
+					{'to':'aa','source':'bb','type':'1','msg':'MSG'},
+					{'to':'aa','source':'bb','type':'1','msg':'MSG'},
+					{'to':'aa','source':'bb','type':'1','msg':'MSG'}
+				]
 			}
 		},
 		onLoad(e) {
@@ -56,7 +65,14 @@
 			console.log('vuex 内容获取 ==>',this)
 			//获取当前登录用户
 			console.log('当前登录用户 ==>')
+			console.log('user()',this.user)
 		},
+		computed:{
+			user(){ //当前登录用户
+				return this.$store.state.user
+			}
+		}
+		,
 		methods: {
 			
 		}
