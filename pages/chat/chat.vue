@@ -1,28 +1,17 @@
 <template>
 	<view>
-		{{this.user}}
 		<scroll-view scroll-y="true">
 			<view class="list">
-				<!-- 左 -->
-				<view class="item item-left" v-for="(item,index) in list" :key="index">
+				<!-- :class="[item.source == user? 'item-right':'item-left','item']" 判断是否是当前登录用户 如果是显示在右边 -->
+				<view :class="[item.source == user? 'item-right':'item-left','item']" v-for="(item,index) in list" :key="index">
 					<u-avatar 
+								:text="item.source == user? user:to"
 					            src="https://pic.169pp.net/169mm/202212/089/1.jpg"
-					            fontSize="18"
+					            fontSize="8"
 					            randomBgColor
 					    ></u-avatar>
 						<view class="item-left-msg">
-							{{me}}fffmax-width: 600rpx;max-width: 600rpx;max-width: 600rpx;max-width: 600rpx;max-width: 600rpx;ffffffffdddffffffffffffffddddddddddd
-						</view>
-				</view>
-				<!-- 右 -->
-				<view class="item item-right">
-					<u-avatar 
-					            src="https://pic.169pp.net/169mm/202210/010/1.jpg"
-					            fontSize="18"
-					            randomBgColor
-					    ></u-avatar>
-						<view class="item-right-msg">
-							{{username}}dddddd
+							{{item.msg}}
 						</view>
 				</view>
 			</view>
@@ -35,7 +24,6 @@
 				</u--input>
 				<button type="primary">发送</button>
 				<u-icon name='phone' size="38">
-					
 				</u-icon>
 			</view>
 		</view>
@@ -46,21 +34,21 @@
 	export default {
 		data() {
 			return {
-				username:'',
+				to:'',
 				me:'',
 				msg:'',
 				list:[
-					{'to':'aa','source':'bb','type':'1','msg':'MSG'},
-					{'to':'aa','source':'bb','type':'1','msg':'MSG'},
-					{'to':'aa','source':'bb','type':'1','msg':'MSG'},
-					{'to':'aa','source':'bb','type':'1','msg':'MSG'},
-					{'to':'aa','source':'bb','type':'1','msg':'MSG'}
+					{'to':'李桂雪','source':'LQ','type':'1','msg':'你好我是刘奇'},
+					{'to':'LQ','source':'李桂雪','type':'1','msg':'你好刘奇我是李桂雪'},
+					{'to':'李桂雪','source':'LQ','type':'1','msg':'新年快乐'},
+					{'to':'LQ','source':'李桂雪','type':'1','msg':'METOO'},
+					{'to':'LQ','source':'李桂雪','type':'1','msg':'出来玩'}
 				]
 			}
 		},
 		onLoad(e) {
 			console.log(e)
-			this.username = e.to
+			this.to = e.to
 			this.me = e.me
 			console.log('vuex 内容获取 ==>',this)
 			//获取当前登录用户
