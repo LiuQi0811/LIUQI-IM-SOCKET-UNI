@@ -3,14 +3,14 @@
 		<scroll-view scroll-y="true">
 			<view class="list">
 				<!-- :class="[item.source == user? 'item-right':'item-left','item']" 判断是否是当前登录用户 如果是显示在右边 -->
-				<view :class="[item.source == user? 'item-right':'item-left','item']" v-for="(item,index) in list" :key="index">
+				<view :class="[item.source == user? 'item-right':'item-left','item']" v-for="(item,index) in chatInfos" :key="index">
 					<u-avatar 
 								:text="item.source == user? user:to"
 					            src="https://pic.169pp.net/169mm/202212/089/1.jpg"
 					            fontSize="8"
 					            randomBgColor
 					    ></u-avatar>
-						<view class="item-left-msg">
+						<view class="item-msg">
 							{{item.msg}}
 						</view>
 				</view>
@@ -22,7 +22,7 @@
 				<u--input 
 				border='surroud' v-model="msg">
 				</u--input>
-				<button type="primary">发送</button>
+				<button type="primary" @click="sendMsg">发送</button>
 				<u-icon name='phone' size="38">
 				</u-icon>
 			</view>
@@ -37,13 +37,19 @@
 				to:'',
 				me:'',
 				msg:'',
-				list:[
+				chatInfos:[
 					{'to':'李桂雪','source':'LQ','type':'1','msg':'你好我是刘奇'},
 					{'to':'LQ','source':'李桂雪','type':'1','msg':'你好刘奇我是李桂雪'},
 					{'to':'李桂雪','source':'LQ','type':'1','msg':'新年快乐'},
 					{'to':'LQ','source':'李桂雪','type':'1','msg':'METOO'},
 					{'to':'LQ','source':'李桂雪','type':'1','msg':'出来玩'}
-				]
+				],// 聊天记录信息列表
+				chatInfo:{
+					'to':'',
+					'source':'',
+					'type':'',
+					'msg':''
+				}
 			}
 		},
 		onLoad(e) {
@@ -62,7 +68,16 @@
 		}
 		,
 		methods: {
-			
+			sendMsg(){ // 发送消息
+			this.chatInfo.msg = this.msg
+			this.chatInfo.source = this.$store.state.user
+			this.chatInfo.to = this.to
+			this.chatInfo.type = '1'
+			console.log('sendMsg',this.chatInfo)
+			//chatInfos  push
+			this.chatInfos.push(this.chatInfo)
+			}
+
 		}
 	}
 </script>
@@ -86,7 +101,10 @@
 	.item-left{
 		 flex-direction: row;
 	}
-	.item-left-msg{
+	.item-right{
+		 flex-direction: row-reverse;
+	}
+	.item-msg{
 		background-color: #fff;
 		border-radius : 20rpx;
 		margin-left: 16rpx;
@@ -95,19 +113,7 @@
 		padding: 16rpx 14rpx;
 		max-width: 600rpx;
 	}
-	.item-right{
-		 flex-direction: row-reverse;
-	}
-	.item-right-msg{
-		background-color: #fff;
-		border-radius : 20rpx;
-		margin-left: 16rpx;
-		font-size: 25rpx;
-		line-height: 50rpx;
-		padding: 16rpx 14rpx;
-		max-width: 600rpx;	
-		}
-		
+	
 	.bottom{
 		position: fixed;
 		bottom: 0;
