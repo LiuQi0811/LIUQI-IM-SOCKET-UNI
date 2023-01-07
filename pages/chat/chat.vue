@@ -29,7 +29,13 @@
 		
 		<view class="bottom">
 			<view class="bottom-item">
-				
+				<u--input 
+				border='surroud'>
+				</u--input>
+				<button type="primary">发送</button>
+				<u-icon name='phone' size="38">
+					
+				</u-icon>
 			</view>
 		</view>
 	</view>
@@ -97,4 +103,15 @@
 		padding: 16rpx 14rpx;
 		max-width: 600rpx;	
 		}
+		
+	.bottom{
+		position: fixed;
+		bottom: 0;
+		background-color: #fff;
+		width: 100%;
+		border-top: 1px solid rgba(39, 40, 50, 0.1);
+	}
+	.bottom-item{
+		display: flex;
+	}
 </style>
