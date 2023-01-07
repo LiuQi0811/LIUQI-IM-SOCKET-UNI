@@ -2,11 +2,11 @@
 	<view>
 		<view v-show='showNotice'>
 			<!-- NoticeBar 滚动通知  -->
-			  <u-notice-bar :text="onlineUser"></u-notice-bar>
+			  <u-notice-bar :text="onlineUser" duration='2000' mode='closable'></u-notice-bar>
 		</view>
 		
 		<view class="communication—list">
-			<view class="communication—list-item" v-for="(item,index) in users">
+			<view class="communication—list-item" v-for="(item,index) in users" :key="index" @click="toChat(item)">
 					<img class="communication—list-item-image" src="../../static/logo.png" alt="">
 					<h3 class = "communication—list-name">{{item}}</h3>
 					<view class="communication—list-time">2023-01-05</view>
@@ -30,8 +30,13 @@ import { data } from 'browserslist'
 			} 
 		},
 		watch:{ // vuex监听器
-			'$store.state.websocketData':(val,oval)=>{
+			'$store.state.websocketData':function(val,oval){ //注意这里声明方法 不要用 ()=> 选择 function()
 				console.log('vuex监听器 好友上线提示 ==>',val.msg)
+				if(val.type){ // 
+					this.showNotice = true
+					this.onlineUser = val.msg
+					this.getUsers()
+				}
 			}
 		},
 		onLoad(param) {
@@ -65,6 +70,11 @@ import { data } from 'browserslist'
 					 users.splice(index,1)
 				 }
 				 return users
+			 },
+			 toChat(e){
+				 uni.navigateTo({ //跳转到聊天页面
+				 	url:'/pages/chat/chat?to='+e
+				 });
 			 }
 		}
 	}

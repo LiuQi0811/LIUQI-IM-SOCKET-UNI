@@ -18,6 +18,15 @@
 			"style": {
 				"navigationBarTitleText": "通讯列表"
 			}
+		},
+		{
+			"path" : "pages/chat/chat",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "聊天页面",
+				"enablePullDownRefresh": false
+			}
+			
 		}
 	    
     ],
