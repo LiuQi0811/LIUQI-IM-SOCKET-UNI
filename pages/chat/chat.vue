@@ -9,8 +9,8 @@
 					            fontSize="18"
 					            randomBgColor
 					    ></u-avatar>
-						<view>
-							{{me}}
+						<view class="item-left-msg">
+							{{me}}fffmax-width: 600rpx;max-width: 600rpx;max-width: 600rpx;max-width: 600rpx;max-width: 600rpx;ffffffffdddffffffffffffffddddddddddd
 						</view>
 				</view>
 				<!-- 右 -->
@@ -20,12 +20,18 @@
 					            fontSize="18"
 					            randomBgColor
 					    ></u-avatar>
-						<view>
-							{{username}}
+						<view class="item-right-msg">
+							{{username}}dddddd
 						</view>
 				</view>
 			</view>
 		</scroll-view>
+		
+		<view class="bottom">
+			<view class="bottom-item">
+				
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -51,6 +57,44 @@
 	}
 </script>
 
-<style>
-
+<style scoped>
+	page{
+		background-color: rgb(243, 243, 243);
+	}
+	.list{
+		display: flex;
+		flex-direction: column;
+		padding-left: 20rpx;
+		padding-top: 50rpx;
+		padding-right: 20rpx;
+		padding-bottom: 100rpx;
+	}
+	.item{
+		display: flex;
+		padding: 20rpx 0;
+	}
+	.item-left{
+		 flex-direction: row;
+	}
+	.item-left-msg{
+		background-color: #fff;
+		border-radius : 20rpx;
+		margin-left: 16rpx;
+		font-size: 25rpx;
+		line-height: 50rpx;
+		padding: 16rpx 14rpx;
+		max-width: 600rpx;
+	}
+	.item-right{
+		 flex-direction: row-reverse;
+	}
+	.item-right-msg{
+		background-color: #fff;
+		border-radius : 20rpx;
+		margin-left: 16rpx;
+		font-size: 25rpx;
+		line-height: 50rpx;
+		padding: 16rpx 14rpx;
+		max-width: 600rpx;	
+		}
 </style>
