@@ -72,8 +72,9 @@ import { data } from 'browserslist'
 				 return users
 			 },
 			 toChat(e){
+				 let me = this.$store.state.user //获取 当前登录用户
 				 uni.navigateTo({ //跳转到聊天页面
-				 	url:'/pages/chat/chat?to='+e
+				 	url:'/pages/chat/chat?to='+e+'&me='+me
 				 });
 			 }
 		}
