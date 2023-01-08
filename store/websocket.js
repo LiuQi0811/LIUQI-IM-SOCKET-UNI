@@ -44,11 +44,11 @@ const store = createStore({
 			
 			// 可行的 会有好友上线提示
 			uni.onSocketMessage((res)=>{
-				console.log(JSON.parse(res.data))
+				console.log(res.data)
 				console.log('消息提示：',res)
 			if(res.data !=='连接成功'){
 				if(res){
-				let data = JSON.parse(res.data);
+				let data = JSON.parse(res.data)
 				console.log('Data ==>',data)
 				commit('setWebsocketData',data)
 				commit('setOnlineMessage',data.msg)
@@ -81,6 +81,7 @@ const store = createStore({
 			})
 		},
 		websocketSend({state},data){//发送数据
+		console.log('websocketSend ...........',data)
 			uni.sendSocketMessage({
 				data,
 				success:res =>{

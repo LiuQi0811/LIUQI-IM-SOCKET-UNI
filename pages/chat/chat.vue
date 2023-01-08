@@ -52,6 +52,17 @@
 				}
 			}
 		},
+		watch:{ // vuex监听器
+			'$store.state.websocketData':function(val,oval){ //注意这里声明方法 不要用 ()=> 选择 function()
+				console.log('vuex监听器 好友上线提示 单发 ==>',val.msg)
+				console.log('val.type ==>',val.type)
+				if(val.type==1){ // 单发消息
+				console.log('聊天==>',val)
+					 this.chatInfos.push(val)
+					 console.log('push 数据 ==>',this.chatInfos)
+				}
+			}
+		},
 		onLoad(e) {
 			console.log(e)
 			this.to = e.to
@@ -76,6 +87,7 @@
 			console.log('sendMsg',this.chatInfo)
 			//chatInfos  push
 			this.chatInfos.push(this.chatInfo)
+			console.log(this.$store.dispatch('websocketSend',JSON.stringify(this.chatInfo)))
 			}
 
 		}

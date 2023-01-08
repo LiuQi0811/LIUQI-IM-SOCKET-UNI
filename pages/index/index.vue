@@ -31,12 +31,12 @@ import { data } from 'browserslist'
 		},
 		watch:{ // vuex监听器
 			'$store.state.websocketData':function(val,oval){ //注意这里声明方法 不要用 ()=> 选择 function()
-				console.log('vuex监听器 好友上线提示 ==>',val.msg)
-				if(val.type){ // 
+				console.log('vuex监听器 好友上线提示 群发 ==>',val.msg)
+				if(val.type===0){ // 群发消息
 					this.showNotice = true
 					this.onlineUser = val.msg
-					this.getUsers()
 				}
+				this.getUsers()
 			}
 		},
 		onLoad(param) {
