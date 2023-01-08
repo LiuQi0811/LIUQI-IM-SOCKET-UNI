@@ -87,7 +87,9 @@
 			console.log('sendMsg',this.chatInfo)
 			//chatInfos  push
 			this.chatInfos.push(this.chatInfo)
-			console.log(this.$store.dispatch('websocketSend',JSON.stringify(this.chatInfo)))
+			this.msg = '' // 清空输入内容
+			this.$store.dispatch('websocketSend',JSON.stringify(this.chatInfo))
+			
 			}
 
 		}
